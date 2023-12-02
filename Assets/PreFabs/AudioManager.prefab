@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3535572948164541055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3535572948164541053}
+  - component: {fileID: 3535572948164541054}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3535572948164541053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3535572948164541055}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 164.34084, y: 121.86207, z: 256.0349}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3535572948164541054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3535572948164541055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed6bda549196034c9a4040157198c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: walk
+    clip: {fileID: 8300000, guid: 4efca581727797543b14b758b2308fc2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: shoot
+    clip: {fileID: 8300000, guid: dd75bb01d701f304fa730e9b4970537f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: slash
+    clip: {fileID: 8300000, guid: 2a0c940a4958e9841b37795c26b737e2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: swoosh
+    clip: {fileID: 8300000, guid: c8216ee971ef71649941166837b307a9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: hit
+    clip: {fileID: 8300000, guid: c03aea7682a2bc847a8f14668457f414, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: powerup
+    clip: {fileID: 8300000, guid: d33f48cc18a1e104790572882d0cd1d8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: healing
+    clip: {fileID: 8300000, guid: 386ef16ee87f5624caf77f419dae0914, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: explosion
+    clip: {fileID: 8300000, guid: cced21bb358e89349b0003b563c05e59, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: rockHit
+    clip: {fileID: 8300000, guid: c1299093be6e705478789e30616e0e43, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: hurt
+    clip: {fileID: 8300000, guid: 537c499f207f0f149a77009add88926a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: portal
+    clip: {fileID: 8300000, guid: d8350884a4b9a7948b531cb71a93dd2e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: portalIdle
+    clip: {fileID: 8300000, guid: 4cdcf52a4f939aa4f90f6eea4a039985, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
