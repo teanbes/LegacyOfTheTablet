@@ -81,21 +81,19 @@ public class PlayerFreeLookState : PlayerBaseState
 
     private void OnTarget()
     {
-        if (!stateMachine.Targeter.SelectTarget()) { return; }
-
-        stateMachine.SwitchState(new PlayerTargetingState(stateMachine));
+        // To do: target system, Probably not going to do it
     }
 
 
     private void OnJump()
     {
-        stateMachine.SwitchState(new PlayerJumpingState(stateMachine));
+        // To DO: 
+        // probaly dodging or dashing
     }
 
     private void OnShoot()
     {
-        if(stateMachine.isSpell)
-            stateMachine.SwitchState(new PlayerShootingState(stateMachine));
+        // To Do: Spell
     }
 
 

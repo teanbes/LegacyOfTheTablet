@@ -20,14 +20,12 @@ public class PlayerAttackingState : PlayerBaseState
         stateMachine.Weapon.SetAttack(attack.Damage, attack.Knockback);
         stateMachine.Animator.CrossFadeInFixedTime(attack.AnimationName, attack.TransitionDuration);
         // To Do: add sound
-        //AudioManager.Instance.Play("swoosh");
     }
 
     public override void Tick(float deltaTime)
     {
         Move(deltaTime);
 
-        //FaceTarget();
         FaceMouseCursor();
 
         float normalizedTime = GetNormalizedTime(stateMachine.Animator, "Attack");
@@ -42,20 +40,11 @@ public class PlayerAttackingState : PlayerBaseState
             {
                 if (stateMachine.InputReader.IsAttacking)
                     TryComboAttack(normalizedTime);
-                
             }
-           
         }
         else
         {
-            if (stateMachine.Targeter.CurrentTarget != null)
-            {
-                stateMachine.SwitchState(new PlayerTargetingState(stateMachine));
-            }
-            else
-            {
-                stateMachine.SwitchState(new PlayerFreeLookState(stateMachine));
-            }
+            stateMachine.SwitchState(new PlayerFreeLookState(stateMachine));
         }
 
         previousFrameTime = normalizedTime;
@@ -72,14 +61,7 @@ public class PlayerAttackingState : PlayerBaseState
 
         if (normalizedTime < attack.ComboAttackTime) { return; }
 
-        stateMachine.SwitchState
-        (
-            new PlayerAttackingState
-            (
-                stateMachine,
-                attack.ComboStateIndex
-            )
-        );
+        stateMachine.SwitchState(new PlayerAttackingState(stateMachine,attack.ComboStateIndex));
     }
 
     private void TryApplyForce()

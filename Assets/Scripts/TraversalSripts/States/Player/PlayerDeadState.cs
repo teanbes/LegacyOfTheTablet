@@ -16,23 +16,20 @@ public class PlayerDeadState : PlayerBaseState
         Cursor.visible = true;
         stateMachine.Ragdoll.ToggleRagdoll(true);
         stateMachine.Weapon.gameObject.SetActive(false);
-        stateMachine.DeathParticles.SetActive(true);
-
-          
+        stateMachine.DeathParticles.SetActive(true);  
     }
 
     public override void Tick(float deltaTime) 
     {
         if ((timer -= Time.deltaTime) <=0)
         {
-            
             stateMachine.gameOverPanel.SetActive(true);
-            stateMachine.uiManager.PauseBackgorundMusic();
-            
+            stateMachine.uiManager.PauseBackgorundMusic(); 
         }
     }
 
-    public override void Exit() { }
-
-
+    public override void Exit() 
+    { 
+    
+    }
 }
