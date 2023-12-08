@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         playerIsDead = false;
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
 
     }
 

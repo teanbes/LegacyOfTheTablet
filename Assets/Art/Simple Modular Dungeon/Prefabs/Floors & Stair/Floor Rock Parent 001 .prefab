@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 1721035773889360092}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9031864937366367935
 GameObject:
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1721035773889360092}
   - component: {fileID: 4393160070012010553}
   - component: {fileID: 4890686084366598499}
-  - component: {fileID: 2522879826147605088}
+  - component: {fileID: 8331466875297287681}
   m_Layer: 0
   m_Name: Floor Rock Variation 001
   m_TagString: Untagged
@@ -64,7 +64,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6903375097745747084}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4393160070012010553
 MeshFilter:
@@ -117,7 +117,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2522879826147605088
+--- !u!65 &8331466875297287681
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,16 +125,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9031864937366367935}
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.0514293, y: 0.05, z: 4.1}
-  m_Center: {x: 0.13428521, y: 0, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 4, y: 0.18012127, z: 4}
+  m_Center: {x: 0.11642456, y: -0.02533378, z: 0.030654907}

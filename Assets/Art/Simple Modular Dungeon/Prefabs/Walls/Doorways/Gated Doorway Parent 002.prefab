@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 6435792796521943408}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7535989200308828247
 GameObject:
@@ -43,8 +43,7 @@ GameObject:
   - component: {fileID: 6435792796521943408}
   - component: {fileID: 9066669162338180285}
   - component: {fileID: 4982390077869270}
-  - component: {fileID: 5958122389950587593}
-  - component: {fileID: 4717573672033794123}
+  - component: {fileID: 124201931263725497}
   m_Layer: 0
   m_Name: Doorway Gated Variation 002
   m_TagString: Untagged
@@ -65,7 +64,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8960485083075865583}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9066669162338180285
 MeshFilter:
@@ -119,7 +118,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5958122389950587593
+--- !u!65 &124201931263725497
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,37 +126,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7535989200308828247}
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.4653833, y: 3.0386958, z: 3.4910572}
-  m_Center: {x: -0.0006326735, y: 1.4976692, z: 0.34833658}
---- !u!65 &4717573672033794123
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7535989200308828247}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0186996, y: 3.0386958, z: 1.0280242}
-  m_Center: {x: -0.019504547, y: 1.4976692, z: -1.9002821}
+  serializedVersion: 2
+  m_Size: {x: 1.0186996, y: 3.0386958, z: 4.5086756}
+  m_Center: {x: -0.019504547, y: 1.4976692, z: -0.15995646}
