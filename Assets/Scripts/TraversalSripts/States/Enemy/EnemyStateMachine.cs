@@ -83,7 +83,7 @@ public class EnemyStateMachine : StateMachine
     private void HandleDie()
     {
         SwitchState(new EnemyDeadState(this));
-        enemyDead = true;
+        enemyDead = true;   
     }
 
     private void OnDrawGizmosSelected()
