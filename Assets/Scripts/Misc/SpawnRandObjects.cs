@@ -13,8 +13,6 @@ public class SpawnRandObjects : MonoBehaviour
     void Start()
     {
         SpawnPowerUps(collectibles);
-
-
     }
     
     public void SpawnPowerUps(GameObject[] collectibles)
@@ -26,11 +24,7 @@ public class SpawnRandObjects : MonoBehaviour
             transform.rotation = currentRotation;
             int index = Random.Range(0, collectibles.Length);
 
-
             Instantiate(collectibles[index], transform.position, transform.rotation);
-
         }
-
     }
-
 }

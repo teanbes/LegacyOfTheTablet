@@ -16,6 +16,7 @@ public class EnemyStateMachine : StateMachine
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
 
     [field: SerializeField] public float MovementSpeed { get; private set; }
+    [field: SerializeField] public float PatrolingSpeed { get; private set; }
     [field: SerializeField] public float PlayerChasingRange { get; private set; }
     [field: SerializeField] public float AttackRange { get; private set; }
     [field: SerializeField] public int AttackDamage { get; private set; }
@@ -82,7 +83,7 @@ public class EnemyStateMachine : StateMachine
     private void HandleDie()
     {
         SwitchState(new EnemyDeadState(this));
-        enemyDead = true;
+        enemyDead = true;   
     }
 
     private void OnDrawGizmosSelected()

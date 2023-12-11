@@ -112,7 +112,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   maxDistance: 20
-  golemHealth: {fileID: 826097100}
+  golemHealth: {fileID: 0}
   damage: 0
   golemDead: 0
   bulletPrefab: {fileID: 8625388961627306616, guid: 021d829f1db25174d9a1e918a46cf66b, type: 3}

@@ -35,7 +35,7 @@ public class EnemyPatrollingState : EnemyBaseState
 
         Patrol(deltaTime);
 
-        stateMachine.Animator.SetFloat(SpeedHash, 1f, AnimatorDampTime, deltaTime);
+        stateMachine.Animator.SetFloat(SpeedHash, 0.5f, AnimatorDampTime, deltaTime);
 
     }
 
@@ -59,7 +59,7 @@ public class EnemyPatrollingState : EnemyBaseState
 
 
             }
-                Move(stateMachine.Agent.desiredVelocity.normalized * stateMachine.MovementSpeed, deltaTime);
+                Move(stateMachine.Agent.desiredVelocity.normalized * stateMachine.PatrolingSpeed, deltaTime);
 
                 FacePatrolPoint();
         }
