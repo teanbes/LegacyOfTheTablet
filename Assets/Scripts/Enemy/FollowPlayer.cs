@@ -21,7 +21,7 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] public float maxDistance = 20f;
 
     //Health
-    [SerializeField] public GolemHealth golemHealth;
+    [SerializeField] public Health golemHealth;
     [SerializeField] public int damage;
     [SerializeField] public  bool golemDead;
 
@@ -38,12 +38,14 @@ public class FollowPlayer : MonoBehaviour
     // Animation Vars
     [SerializeField] public Animator animator;
     private readonly int LocomotionHash = Animator.StringToHash("Locomotion");
-    private readonly int Attack01Hash = Animator.StringToHash("Attack01");
+    private readonly int Attack01Hash = Animator.StringToHash("Attack02");
     private readonly int SpeedHash = Animator.StringToHash("Speed");
     private readonly int GetHitHash = Animator.StringToHash("GetHit");
     private readonly int DieHash = Animator.StringToHash("Die");
     private const float CrossFadeDuration = 0.1f;
     private const float AnimatorDampTime = 0.1f;
+
+    private bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -87,61 +89,48 @@ public class FollowPlayer : MonoBehaviour
             // Player and enemy positions vars
             float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
             Vector3 directionToTarget = (Player.position - transform.position).normalized;
-
-            if (canSeePlayer == true && golemDead == false)
+              
+            // Follow player if can see and is not in range of attack
+            if (distanceToPlayer >= rangeOfAttack && distanceToPlayer <= radius && !isAttacking)
             {
-                               
-                // Follow player if can see and is not in range of attack
-                if (distanceToPlayer >= rangeOfAttack && distanceToPlayer <= radius)
-                {
-                    enemy.SetDestination(Player.position);
-                    animator.SetFloat(SpeedHash, 1f, AnimatorDampTime, Time.deltaTime);
-                    
-                }
-                // Enemy stops at range but rotates towards player to keep shooting from range
-                else
-                {
-                    transform.rotation = Quaternion.LookRotation(directionToTarget);
-                    enemy.ResetPath();
-                    animator.SetFloat(SpeedHash, 0f, AnimatorDampTime, Time.deltaTime);
-                    isOnRange = true;
-                }
-
-                 // Raycast for attacking player
-                if (tempraycast && isOnRange)
-                {
-                    Debug.DrawRay(rayCastOrigin, transform.forward * hit.distance, Color.red);
-
-                    if (hit.collider.CompareTag("Player"))
-                    {
-
-                        if (Time.time - lastShootTime >= shootInterval) 
-                        {
-                            AudioManager.Instance.Play("Hit");
-                            animator.CrossFadeInFixedTime(Attack01Hash, CrossFadeDuration);
-                            
-                            lastShootTime = Time.time;
-                        }
-                    }
-
-                }
-                else if (!tempraycast)
-                {
-
-                    Debug.DrawRay(rayCastOrigin, transform.forward * maxDistance, Color.blue);
-                }
-
+                enemy.SetDestination(Player.position);
+                animator.SetFloat(SpeedHash, 1f, AnimatorDampTime, Time.deltaTime);
+                isOnRange = false;
             }
+            // Enemy stops at range but rotates towards player to keep shooting from range
+            else if (distanceToPlayer <= rangeOfAttack && distanceToPlayer <= radius)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToTarget.x, 0f, directionToTarget.z));
+
+                transform.rotation = targetRotation;
+                enemy.ResetPath();
+                enemy.velocity = Vector3.zero;
+                //animator.SetFloat(SpeedHash, 0f, AnimatorDampTime, Time.deltaTime);
+                isOnRange = true;
+
+                if (!isAttacking)
+                {
+                    StartCoroutine(AttackPlayer());
+                }
+            }
+            else 
+            {
+                // Player is out of range, stop attacking and follow again
+                StopAttack();
+                enemy.SetDestination(Player.position);
+                animator.SetFloat(SpeedHash, 1f, AnimatorDampTime, Time.deltaTime);
+                isOnRange = false;
+            }
+
         }
         else if (canSeePlayer == false && golemDead == false)
         {
+            enemy.ResetPath();
+            enemy.velocity = Vector3.zero;
             animator.CrossFadeInFixedTime(LocomotionHash, CrossFadeDuration);
             animator.SetFloat(SpeedHash, 0f, AnimatorDampTime, Time.deltaTime);
             isOnRange = false;
         }
-
-
-
     }
 
     private void OnEnable()
@@ -192,7 +181,6 @@ public class FollowPlayer : MonoBehaviour
             
             Transform target = rangeChecks[0].transform;
 
-
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
@@ -214,8 +202,8 @@ public class FollowPlayer : MonoBehaviour
 
     private void HandleTakeDamage()
     {
-        animator.CrossFadeInFixedTime(GetHitHash, CrossFadeDuration);
-        StartCoroutine(AnimationDelay());
+        //animator.CrossFadeInFixedTime(GetHitHash, CrossFadeDuration);
+        //StartCoroutine(AnimationDelay());
     }
 
     private void HandleDie()
@@ -248,9 +236,31 @@ public class FollowPlayer : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(direction * bulletSpeed, ForceMode.Impulse);
     }
 
+    IEnumerator AttackPlayer()
+    {
+        // Set the attacking flag to true
+        isAttacking = true;
+
+        // Play attack animation
+        animator.CrossFadeInFixedTime(Attack01Hash, CrossFadeDuration);
+
+        // Wait for the attack animation to finish
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+  
+        // Set the attacking flag to false after the attack is finished
+        isAttacking = false;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+    void StopAttack()
+    {
+        // Stop the attack animation and reset the attacking flag
+        animator.CrossFadeInFixedTime(LocomotionHash, CrossFadeDuration);
+        isAttacking = false;
     }
 }
