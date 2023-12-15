@@ -8,7 +8,6 @@ public class CheckPoint : MonoBehaviour
     {
             if (collision.TryGetComponent<PlayerStateMachine>(out PlayerStateMachine stateMachine))
             {
-                stateMachine.uiManager.SaveGame();
                 Destroy(gameObject);
             }
     }

@@ -10,7 +10,6 @@ public class TurretFollowProjectile : MonoBehaviour
     [SerializeField] private float followSpeed = 7f;
     [SerializeField] private float stopFollowDistance = 8f;
     [SerializeField] private GameObject hitParticle;
-    [SerializeField] private int damage = 8;
     [SerializeField] private LayerMask LayersMask;
 
     private Rigidbody rb;
