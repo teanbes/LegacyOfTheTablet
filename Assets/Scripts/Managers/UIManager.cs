@@ -54,19 +54,12 @@ public class UIManager : MonoBehaviour
   
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene(0);
-            }
-        }
+        // Pause only on Level Scene
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             if (Input.GetKeyDown(KeyCode.P))
                 PauseGame();
         }
-
     }
 
     

@@ -23,8 +23,7 @@ public class PlayerDeadState : PlayerBaseState
     {
         if ((timer -= Time.deltaTime) <=0)
         {
-            stateMachine.gameOverPanel.SetActive(true);
-            stateMachine.uiManager.PauseBackgorundMusic(); 
+            SceneManager.LoadScene("GameOver");
         }
     }
 
