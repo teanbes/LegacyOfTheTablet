@@ -6,6 +6,8 @@ public class WaveCollider : MonoBehaviour
 {
     [SerializeField] private GameObject waveCollider;
     [SerializeField] private GameObject cineCamera;
+    [SerializeField] private BoxCollider WaveTrigger;
+
 
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +25,7 @@ public class WaveCollider : MonoBehaviour
 
     private void TurnOnObject()
     {
+        WaveTrigger.enabled = false;
         waveCollider.SetActive(true);
         cineCamera.SetActive(true);
     }

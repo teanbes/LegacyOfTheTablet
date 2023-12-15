@@ -53,8 +53,11 @@ public class WaveManager : MonoBehaviour
 
     private void OpenDoors()
     {
-        leftDoorAnimator.SetTrigger("Open");
-        rightDoorAnimator.SetTrigger("Open");
-        WaveTrigger.enabled = false;
+        if (leftDoorAnimator)
+            leftDoorAnimator.SetTrigger("Open");
+        if (rightDoorAnimator)
+            rightDoorAnimator.SetTrigger("Open");
+        //WaveTrigger.enabled = false;
     }
+
 }

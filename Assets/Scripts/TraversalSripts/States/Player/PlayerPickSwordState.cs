@@ -20,7 +20,6 @@ public class PlayerPickSwordState : PlayerBaseState
         stateMachine.Animator.CrossFadeInFixedTime(PickingUpHash, CrossFadeDuration);
         stateMachine.Health.health = 100;
         stateMachine.Health.HealthBarHandler();
-        stateMachine.uiManager.SaveGame();
     }
    
     public override void Tick(float deltaTime)
