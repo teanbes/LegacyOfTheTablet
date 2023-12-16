@@ -5,32 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class YouWin : MonoBehaviour
 {
-    private readonly int FloatingHash = Animator.StringToHash("Floating");
-
     public PlayerStateMachine stateMachine;
-    private const float CrossFadeDuration = 0.1f;
     
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.CompareTag("Player"))
+        if (other.GetComponent<PlayerStateMachine>())
         {
-            
-            stateMachine.Animator.CrossFadeInFixedTime(FloatingHash, CrossFadeDuration);
-            AudioManager.Instance.Play("portal");
-            Invoke("Delay", 3f);
-
+            stateMachine.SwitchState(new PlayerWinState(stateMachine));
+            Invoke("DestroyTablet", 5.0f);
         }
-
-
     }
 
-    private void Delay()
+    private void DestroyTablet()
     {
-        SceneManager.LoadScene(3);
+        Destroy(gameObject);
     }
-
-
-
-
 }
