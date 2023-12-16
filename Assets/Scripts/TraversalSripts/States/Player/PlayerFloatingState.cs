@@ -7,10 +7,6 @@ public class PlayerFloatingState : PlayerBaseState
     private readonly int FloatingHash = Animator.StringToHash("Floating");
 
     private const float CrossFadeDuration = 0.1f;
-
-
-
-
     public PlayerFloatingState(PlayerStateMachine stateMachine) : base(stateMachine){}
 
     public override void Enter()

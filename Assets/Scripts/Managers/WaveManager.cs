@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour
     private Health currentenemy;
     [SerializeField] private GameObject cineCamera;
     [SerializeField] private BoxCollider WaveTrigger;
+    [SerializeField] private GameObject tabletOfDestinies;
 
     private void Start()
     {
@@ -49,6 +50,10 @@ public class WaveManager : MonoBehaviour
     private void SetCameraFalse()
     {
         cineCamera.SetActive(false);
+        if (tabletOfDestinies)
+        {
+            tabletOfDestinies.GetComponent<BoxCollider>().isTrigger = true;
+        }
     }
 
     private void OpenDoors()
@@ -58,6 +63,8 @@ public class WaveManager : MonoBehaviour
         if (rightDoorAnimator)
             rightDoorAnimator.SetTrigger("Open");
         //WaveTrigger.enabled = false;
+
+
     }
 
 }
