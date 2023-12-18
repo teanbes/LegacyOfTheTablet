@@ -11,6 +11,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public Targeter Targeter { get; private set; }
     [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
     [field: SerializeField] public WeaponDamage Weapon { get; private set; }
+    [field: SerializeField] public HealthBar HealthBar { get; private set; }
 
     [field: SerializeField] public Camera MainCamera { get; private set; }
     [field: SerializeField] public LayerMask GroundLayer { get; private set; }
@@ -80,6 +81,8 @@ public class PlayerStateMachine : StateMachine
 
     private void HandleTakeDamage()
     {
+        int currentHealth = Health.health;
+        HealthBar.UpdateHealthBar(currentHealth);
         SwitchState(new PlayerImpactState(this));
     }
 
