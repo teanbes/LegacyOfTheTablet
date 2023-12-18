@@ -14,6 +14,7 @@ public class EnemyStateMachine : StateMachine
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public Target Target { get; private set; }
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
+    [field: SerializeField] public HealthBar HealthBar { get; private set; }
 
     [field: SerializeField] public float MovementSpeed { get; private set; }
     [field: SerializeField] public float PatrolingSpeed { get; private set; }
@@ -77,6 +78,8 @@ public class EnemyStateMachine : StateMachine
 
     private void HandleTakeDamage()
     {
+        int currentHealth = Health.health;
+        HealthBar.UpdateHealthBar(currentHealth);
         SwitchState(new EnemyImpactState(this));
     }
 

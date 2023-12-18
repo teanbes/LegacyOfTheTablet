@@ -8,6 +8,8 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] public NavMeshAgent enemy;
     [SerializeField] public Transform Player;
     [SerializeField] public bool canSeePlayer;
+    [SerializeField] private Health health;
+    [SerializeField] private HealthBar healthBar;
 
     [SerializeField] public GameObject playerRef;
     [SerializeField] public float radius;
@@ -38,11 +40,11 @@ public class FollowPlayer : MonoBehaviour
     // Animation Vars
     [SerializeField] public Animator animator;
     private readonly int LocomotionHash = Animator.StringToHash("Locomotion");
-    private readonly int Attack01Hash = Animator.StringToHash("Attack02");
+    private readonly int Attack01Hash = Animator.StringToHash("attack3");
     private readonly int SpeedHash = Animator.StringToHash("Speed");
-    private readonly int GetHitHash = Animator.StringToHash("GetHit");
+    private readonly int GetHitHash = Animator.StringToHash("Hit");
     private readonly int DieHash = Animator.StringToHash("Die");
-    private const float CrossFadeDuration = 0.1f;
+    private const float CrossFadeDuration = 0.3f;
     private const float AnimatorDampTime = 0.1f;
 
     private bool isAttacking = false;
@@ -50,7 +52,7 @@ public class FollowPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator.CrossFadeInFixedTime(LocomotionHash, CrossFadeDuration);
+        animator.CrossFadeInFixedTime(LocomotionHash, CrossFadeDuration); 
         golemDead = false;
         canSeePlayer = false;
         isOnRange = false;
@@ -77,6 +79,8 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (golemDead) return;
+
         //RaycastHit hit;
         Vector3 rayCastOrigin = transform.position + new Vector3(0f, -0.5f, 0f);
         // to make raycast only affect on a layer 
@@ -89,7 +93,7 @@ public class FollowPlayer : MonoBehaviour
             // Player and enemy positions vars
             float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
             Vector3 directionToTarget = (Player.position - transform.position).normalized;
-              
+
             // Follow player if can see and is not in range of attack
             if (distanceToPlayer >= rangeOfAttack && distanceToPlayer <= radius && !isAttacking)
             {
@@ -113,12 +117,12 @@ public class FollowPlayer : MonoBehaviour
                     StartCoroutine(AttackPlayer());
                 }
             }
-            else 
+            else if (distanceToPlayer > rangeOfAttack && animator.GetCurrentAnimatorStateInfo(0).length == 0 && !isAttacking)
             {
                 // Player is out of range, stop attacking and follow again
                 StopAttack();
-                enemy.SetDestination(Player.position);
                 animator.SetFloat(SpeedHash, 1f, AnimatorDampTime, Time.deltaTime);
+                enemy.SetDestination(Player.position);
                 isOnRange = false;
             }
 
@@ -202,13 +206,16 @@ public class FollowPlayer : MonoBehaviour
 
     private void HandleTakeDamage()
     {
-        //animator.CrossFadeInFixedTime(GetHitHash, CrossFadeDuration);
+        int currentHealth = health.health;
+        healthBar.UpdateHealthBar(currentHealth);
+        animator.CrossFadeInFixedTime(GetHitHash, CrossFadeDuration);
         //StartCoroutine(AnimationDelay());
     }
 
     private void HandleDie()
     {
         golemDead = true;
+        animator.SetTrigger("Dead");
         animator.CrossFadeInFixedTime(DieHash, CrossFadeDuration);
 
     }
@@ -238,6 +245,7 @@ public class FollowPlayer : MonoBehaviour
 
     IEnumerator AttackPlayer()
     {
+
         // Set the attacking flag to true
         isAttacking = true;
 
@@ -246,7 +254,9 @@ public class FollowPlayer : MonoBehaviour
 
         // Wait for the attack animation to finish
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-  
+
+        animator.CrossFadeInFixedTime(LocomotionHash, CrossFadeDuration);
+
         // Set the attacking flag to false after the attack is finished
         isAttacking = false;
     }

@@ -19,7 +19,6 @@ public class PlayerPickSwordState : PlayerBaseState
         stateMachine.StartCoroutine(PlaySoundEffect());
         stateMachine.Animator.CrossFadeInFixedTime(PickingUpHash, CrossFadeDuration);
         stateMachine.Health.health = 100;
-        stateMachine.Health.HealthBarHandler();
     }
    
     public override void Tick(float deltaTime)

@@ -46,9 +46,6 @@ public class Health : MonoBehaviour
 
         Debug.Log(health);
 
-        HealthBarHandler();
-
-
         if (health == 0)
         {
             OnDie?.Invoke();
@@ -71,68 +68,6 @@ public class Health : MonoBehaviour
 
         Debug.Log("player health" + health);
 
-        HealthBarHandler();
     }
 
-    public void HealthBarHandler()
-    {
-        if (healthBar.Length>0)
-        {
-
-            switch (health)
-            {
-                case 100:
-                    healthBar[0].enabled = true;
-                    healthBar[1].enabled = true;
-                    healthBar[2].enabled = true;
-                    healthBar[3].enabled = true;
-                    healthBar[4].enabled = true;
-                    break;
-
-                case 80:
-                    healthBar[0].enabled = false;
-                    healthBar[1].enabled = true;
-                    healthBar[2].enabled = true;
-                    healthBar[3].enabled = true;
-                    healthBar[4].enabled = true;
-                    break;
-
-                case 60:
-                    healthBar[0].enabled = false;
-                    healthBar[1].enabled = false;
-                    healthBar[2].enabled = true;
-                    healthBar[3].enabled = true;
-                    healthBar[4].enabled = true;
-                    break;
-
-                case 40:
-                    healthBar[0].enabled = false;
-                    healthBar[1].enabled = false;
-                    healthBar[2].enabled = false;
-                    healthBar[3].enabled = true;
-                    healthBar[4].enabled = true;
-                    break;
-
-                case 20:
-                    healthBar[0].enabled = false;
-                    healthBar[1].enabled = false;
-                    healthBar[2].enabled = false;
-                    healthBar[3].enabled = false;
-                    healthBar[4].enabled = true;
-                    break;
-
-                case 0:
-                    healthBar[0].enabled = false;
-                    healthBar[1].enabled = false;
-                    healthBar[2].enabled = false;
-                    healthBar[3].enabled = false;
-                    healthBar[4].enabled = false;
-
-                    break;
-
-            }
-        }
-    }
-
- 
 }

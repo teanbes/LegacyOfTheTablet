@@ -18,7 +18,6 @@ public class PlayerGetsSpellPower : PlayerBaseState
         AudioManager.Instance.Stop("walk");
         AudioManager.Instance.Play("Healing");
         stateMachine.Health.health = 100;
-        stateMachine.Health.HealthBarHandler();
         stateMachine.Animator.CrossFadeInFixedTime(PowerUpHash, CrossFadeDuration);
     }
 
