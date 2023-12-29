@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAttackingState : EnemyBaseState
 {
     private readonly int AttackHash = Animator.StringToHash("Attack");
-    private readonly int AttackProjectileHash = Animator.StringToHash("AttackProjectile");
+    private readonly int AttackProjectileHash = Animator.StringToHash("MagicAttack");
 
     private const float TransitionDuration = 0.1f;
 
@@ -32,7 +32,7 @@ public class EnemyAttackingState : EnemyBaseState
     {
         if (stateMachine.IsShooter)
         {
-            if (GetNormalizedTime(stateMachine.Animator, "AttackProjectile") >= 1)
+            if (GetNormalizedTime(stateMachine.Animator, "MagicAttack") >= 1)
             {
                 stateMachine.SwitchState(new EnemyChasingState(stateMachine));
             }

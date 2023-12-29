@@ -94,6 +94,7 @@ public class PlayerFreeLookState : PlayerBaseState
     private void OnShoot()
     {
         // To Do: Spell
+        stateMachine.SwitchState(new PlayerShootingState(stateMachine));
     }
 
 

@@ -51,7 +51,7 @@ public class PlayerStateMachine : StateMachine
         // Initial weapon state
         isWeapon = true;
         // Initial spell state
-        isSpell = false;
+        isSpell = true;
         // Initial combo state
         isCombo = true;
 
