@@ -45,12 +45,14 @@ public class FollowPlayer : MonoBehaviour
     [Header("Animations")]
     [SerializeField] public Animator animator;
     private readonly int LocomotionHash = Animator.StringToHash("Locomotion");
-    private readonly int Attack01Hash = Animator.StringToHash("attack3");
+    private readonly int Attack03Hash = Animator.StringToHash("attack3");
+    private readonly int Attack04Hash = Animator.StringToHash("attack4");
     private readonly int SpeedHash = Animator.StringToHash("Speed");
     private readonly int GetHitHash = Animator.StringToHash("Hit");
     private readonly int DieHash = Animator.StringToHash("Die");
     private const float CrossFadeDuration = 0.3f;
     private const float AnimatorDampTime = 0.1f;
+    private int attackCounter;
 
     private bool isAttacking = false;
     private string[] attackSounds = { "swoosh3", "swoosh5", "swoosh6" };
@@ -71,7 +73,6 @@ public class FollowPlayer : MonoBehaviour
         if (maxDistance <= 0f)
             maxDistance = 10f;
 
-       
         if (bulletSpeed <= 0f)
             bulletSpeed = 10f;
 
@@ -120,7 +121,7 @@ public class FollowPlayer : MonoBehaviour
 
                 if (!isAttacking)
                 {
-                    StartCoroutine(AttackPlayer());
+                    StartCoroutine(AttackPlayer(distanceToPlayer));
                 }
             }
             else if (distanceToPlayer > rangeOfAttack && animator.GetCurrentAnimatorStateInfo(0).length == 0 && !isAttacking)
@@ -249,9 +250,9 @@ public class FollowPlayer : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(direction * bulletSpeed, ForceMode.Impulse);
     }
 
-    IEnumerator AttackPlayer()
+    IEnumerator AttackPlayer(float distanceToPlayer)
     {
-
+        Debug.Log("distanceToPlayer" + distanceToPlayer);
         // Set the attacking flag to true
         isAttacking = true;
 
@@ -260,14 +261,22 @@ public class FollowPlayer : MonoBehaviour
         {
             string randomAttackSound = attackSounds[Random.Range(0, attackSounds.Length)];
             AudioManager.Instance.Play(randomAttackSound);
+            if (distanceToPlayer < 2.8) 
+            {
+                animator.CrossFadeInFixedTime(Attack04Hash, CrossFadeDuration);
+            }
+            else 
+            { 
+                // Play attack animation
+                animator.CrossFadeInFixedTime(Attack03Hash, CrossFadeDuration);
+            }
         }
         if (isScavanger) 
         { 
             AudioManager.Instance.Play("swoosh4");
+            // Play attack animation
+            animator.CrossFadeInFixedTime(Attack03Hash, CrossFadeDuration);
         }
-
-        // Play attack animation
-        animator.CrossFadeInFixedTime(Attack01Hash, CrossFadeDuration);
 
         // Wait for the attack animation to finish
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
