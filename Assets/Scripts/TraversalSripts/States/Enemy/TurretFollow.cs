@@ -152,6 +152,7 @@ public class TurretFollow : MonoBehaviour
 
     public void ShootPlayer()
     {
+        AudioManager.Instance.Play("cannon");
         // Instantiate bullet and set its position and rotation
         GameObject bullet = Instantiate(bulletPrefab, projectileSpawnPoint.position, Quaternion.identity);
         Destroy(bullet, 5.0f);

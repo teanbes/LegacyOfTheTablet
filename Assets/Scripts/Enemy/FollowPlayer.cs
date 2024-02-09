@@ -5,6 +5,11 @@ using UnityEngine.AI;
 
 public class FollowPlayer : MonoBehaviour
 {
+    [Header("Type Of Enemy")]
+    [SerializeField] private bool isMinotaur;
+    [SerializeField] private bool isScavanger;
+
+    [Header("Enemy Parameters")]
     [SerializeField] public NavMeshAgent enemy;
     [SerializeField] public Transform Player;
     [SerializeField] public bool canSeePlayer;
@@ -22,12 +27,12 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] public LayerMask obstructionMask;
     [SerializeField] public float maxDistance = 20f;
 
-    //Health
-    [SerializeField] public Health golemHealth;
+    [Header("Enemy Health")]
+    [SerializeField] public Health enemyHealth;
     [SerializeField] public int damage;
-    [SerializeField] public  bool golemDead;
+    [SerializeField] public  bool enemyDead;
 
-    // Projectile variables
+    [Header("Projectile Vars")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float shootInterval;
@@ -37,7 +42,7 @@ public class FollowPlayer : MonoBehaviour
     Vector3 direction;
 
 
-    // Animation Vars
+    [Header("Animations")]
     [SerializeField] public Animator animator;
     private readonly int LocomotionHash = Animator.StringToHash("Locomotion");
     private readonly int Attack01Hash = Animator.StringToHash("attack3");
@@ -48,12 +53,13 @@ public class FollowPlayer : MonoBehaviour
     private const float AnimatorDampTime = 0.1f;
 
     private bool isAttacking = false;
+    private string[] attackSounds = { "swoosh3", "swoosh5", "swoosh6" };
 
     // Start is called before the first frame update
     void Start()
     {
         animator.CrossFadeInFixedTime(LocomotionHash, CrossFadeDuration); 
-        golemDead = false;
+        enemyDead = false;
         canSeePlayer = false;
         isOnRange = false;
 
@@ -79,7 +85,7 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (golemDead) return;
+        if (enemyDead) return;
 
         //RaycastHit hit;
         Vector3 rayCastOrigin = transform.position + new Vector3(0f, -0.5f, 0f);
@@ -88,7 +94,7 @@ public class FollowPlayer : MonoBehaviour
         bool tempraycast = Physics.Raycast(rayCastOrigin, transform.forward, out hit, maxDistance, layermask);
 
 
-        if (canSeePlayer == true && golemDead == false)
+        if (canSeePlayer == true && enemyDead == false)
         {
             // Player and enemy positions vars
             float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
@@ -127,7 +133,7 @@ public class FollowPlayer : MonoBehaviour
             }
 
         }
-        else if (canSeePlayer == false && golemDead == false)
+        else if (canSeePlayer == false && enemyDead == false)
         {
             enemy.ResetPath();
             enemy.velocity = Vector3.zero;
@@ -139,14 +145,14 @@ public class FollowPlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        golemHealth.OnTakeDamage += HandleTakeDamage;
-        golemHealth.OnDie += HandleDie;
+        enemyHealth.OnTakeDamage += HandleTakeDamage;
+        enemyHealth.OnDie += HandleDie;
     }
 
     private void OnDisable()
     {
-        golemHealth.OnTakeDamage -= HandleTakeDamage;
-        golemHealth.OnDie -= HandleDie;
+        enemyHealth.OnTakeDamage -= HandleTakeDamage;
+        enemyHealth.OnDie -= HandleDie;
     }
 
     // Delays player finding in case of instatntiating at begining of runtime 
@@ -180,7 +186,7 @@ public class FollowPlayer : MonoBehaviour
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
         // If there is at least 1 collition player is in field of view
 
-        if (rangeChecks.Length != 0 && golemDead == false)
+        if (rangeChecks.Length != 0 && enemyDead == false)
         {
             
             Transform target = rangeChecks[0].transform;
@@ -208,13 +214,13 @@ public class FollowPlayer : MonoBehaviour
     {
         int currentHealth = health.health;
         healthBar.UpdateHealthBar(currentHealth);
-        animator.CrossFadeInFixedTime(GetHitHash, CrossFadeDuration);
+        //animator.CrossFadeInFixedTime(GetHitHash, CrossFadeDuration);
         //StartCoroutine(AnimationDelay());
     }
 
     private void HandleDie()
     {
-        golemDead = true;
+        enemyDead = true;
         animator.SetTrigger("Dead");
         animator.CrossFadeInFixedTime(DieHash, CrossFadeDuration);
 
@@ -248,6 +254,17 @@ public class FollowPlayer : MonoBehaviour
 
         // Set the attacking flag to true
         isAttacking = true;
+
+        // Play attack sound
+        if (isMinotaur) 
+        {
+            string randomAttackSound = attackSounds[Random.Range(0, attackSounds.Length)];
+            AudioManager.Instance.Play(randomAttackSound);
+        }
+        if (isScavanger) 
+        { 
+            AudioManager.Instance.Play("swoosh4");
+        }
 
         // Play attack animation
         animator.CrossFadeInFixedTime(Attack01Hash, CrossFadeDuration);

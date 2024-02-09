@@ -19,12 +19,14 @@ public class PlayerAttackingState : PlayerBaseState
     {
         stateMachine.Weapon.SetAttack(attack.Damage, attack.Knockback);
         stateMachine.Animator.CrossFadeInFixedTime(attack.AnimationName, attack.TransitionDuration);
-        // To Do: add sound
+        
+        AudioManager.Instance.Play(attack.soundName);
     }
 
     public override void Tick(float deltaTime)
     {
         Move(deltaTime);
+
 
         FaceMouseCursor();
 

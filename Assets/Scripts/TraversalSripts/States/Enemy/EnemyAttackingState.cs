@@ -9,6 +9,9 @@ public class EnemyAttackingState : EnemyBaseState
 
     private const float TransitionDuration = 0.1f;
 
+    // Array of attack sounds
+    private string[] attackSounds = { "swoosh3", "swoosh5", "swoosh6" };
+
     public EnemyAttackingState(EnemyStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
@@ -21,6 +24,10 @@ public class EnemyAttackingState : EnemyBaseState
         }
         else if (!stateMachine.IsShooter) 
         {
+            // Select a random hit sound from the array
+            string randomAttackSound = attackSounds[Random.Range(0, attackSounds.Length)];
+            AudioManager.Instance.Play(randomAttackSound);
+
             stateMachine.Weapon.SetAttack(stateMachine.AttackDamage, stateMachine.AttackKnockback);
             stateMachine.Animator.CrossFadeInFixedTime(AttackHash, TransitionDuration);
         }
@@ -34,6 +41,7 @@ public class EnemyAttackingState : EnemyBaseState
         {
             if (GetNormalizedTime(stateMachine.Animator, "MagicAttack") >= 1)
             {
+                AudioManager.Instance.Play("shoot");
                 stateMachine.SwitchState(new EnemyChasingState(stateMachine));
             }
         }
@@ -41,6 +49,7 @@ public class EnemyAttackingState : EnemyBaseState
         {
             if (GetNormalizedTime(stateMachine.Animator, "Attack") >= 1)
             {
+
                 stateMachine.SwitchState(new EnemyChasingState(stateMachine));
             }
         }

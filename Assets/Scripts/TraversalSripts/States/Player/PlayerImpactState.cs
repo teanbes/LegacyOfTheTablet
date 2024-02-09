@@ -10,11 +10,16 @@ public class PlayerImpactState : PlayerBaseState
 
     private float duration = 0.5f;
 
+    // Array of hurt sounds
+    private string[] hurtSounds = { "hurt1", "hurt2", "hurt3" };
+
     public PlayerImpactState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
     {
-        // To DO: Add Audio
+        // Select a random hurt sound from the array
+        string randomHurtSound = hurtSounds[Random.Range(0, hurtSounds.Length)];
+        AudioManager.Instance.Play(randomHurtSound);
         stateMachine.Animator.CrossFadeInFixedTime(ImpactHash, CrossFadeDuration);
     }
 

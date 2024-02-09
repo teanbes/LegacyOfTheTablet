@@ -89,6 +89,7 @@ public class PlayerFreeLookState : PlayerBaseState
     {
         // To DO: 
         // probaly dodging or dashing
+        stateMachine.SwitchState(new PlayerRollingState(stateMachine));
     }
 
     private void OnShoot()

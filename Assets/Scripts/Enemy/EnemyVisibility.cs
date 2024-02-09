@@ -54,7 +54,7 @@ public class EnemyVisibility : MonoBehaviour
         int layermask = 1 << 6;
         bool tempraycast = Physics.Raycast(rayCastOrigin, transform.forward, out hit, maxDistance, layermask);
 
-        if (followPlayer.canSeePlayer == true && followPlayer.golemDead == false)
+        if (followPlayer.canSeePlayer == true && followPlayer.enemyDead == false)
         {
             if (tempraycast)
             {

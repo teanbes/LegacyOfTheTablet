@@ -7,19 +7,23 @@ public class WaveCollider : MonoBehaviour
     [SerializeField] private GameObject waveCollider;
     [SerializeField] private GameObject cineCamera;
     [SerializeField] private BoxCollider WaveTrigger;
+    private bool colliderIsActive = false;
 
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerStateMachine>())
+        if (!colliderIsActive)
         {
-            Invoke("SetCameraTrue", 0.5f);
+            if (other.gameObject.GetComponent<PlayerStateMachine>())
+            {
+                Invoke("SetCameraTrue", 0.5f);
 
-            Invoke("TurnOnObject", 1.5f);
+                Invoke("TurnOnObject", 1.5f);
 
-            Invoke("SetCameraFalse", 4.0f);
+                Invoke("SetCameraFalse", 4.0f);
 
+            }
         }
     }
 

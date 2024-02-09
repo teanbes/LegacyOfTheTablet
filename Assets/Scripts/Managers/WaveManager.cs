@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public List<Health> enemiesInZone; // List to keep track of enemies in the zone
-    public Animator leftDoorAnimator;
-    public Animator rightDoorAnimator;// Animator for the combat animation
+    [SerializeField] private List<Health> enemiesInZone; // List to keep track of enemies in the zone
+    [SerializeField] private Health miniBoss;
+    [SerializeField] private bool isMiniBoss = false;
+    [SerializeField] private Animator leftDoorAnimator;
+    [SerializeField] private Animator rightDoorAnimator;// Animator for the combat animation
     private Health currentenemy;
     [SerializeField] private GameObject cineCamera;
     [SerializeField] private BoxCollider WaveTrigger;
@@ -20,6 +22,9 @@ public class WaveManager : MonoBehaviour
         {
             enemy.OnDie += HandleEnemyDeath; // Subscribe to the OnDeath event
         }
+
+        miniBoss.OnDie += HandleMiniBoss;
+
     }
 
     // Method to handle enemy death
@@ -30,7 +35,7 @@ public class WaveManager : MonoBehaviour
 
         enemiesInZone.Remove(currentenemy); // Remove the dead enemy from the list
 
-        if (enemiesInZone.Count == 0)
+        if (enemiesInZone.Count == 0 && !isMiniBoss)
         {
             // Invoke the SetCameraTrue method after 0.5 seconds
             Invoke("SetCameraTrue", 0.5f);
@@ -40,6 +45,21 @@ public class WaveManager : MonoBehaviour
             // Invoke the SetCameraFalse method after 4.0 seconds to return to player camera
             Invoke("SetCameraFalse", 4.0f);
         }
+        else if (enemiesInZone.Count == 0 && isMiniBoss)
+        {
+            miniBoss.gameObject.SetActive(true);
+        }
+    }
+
+    private void HandleMiniBoss()
+    {
+        // Invoke the SetCameraTrue method after 0.5 seconds
+        Invoke("SetCameraTrue", 0.5f);
+
+        Invoke("OpenDoors", 1.5f);
+
+        // Invoke the SetCameraFalse method after 4.0 seconds to return to player camera
+        Invoke("SetCameraFalse", 4.0f);
     }
 
     private void SetCameraTrue()
@@ -63,8 +83,6 @@ public class WaveManager : MonoBehaviour
         if (rightDoorAnimator)
             rightDoorAnimator.SetTrigger("Open");
         //WaveTrigger.enabled = false;
-
-
     }
 
 }

@@ -10,12 +10,16 @@ public class EnemyImpactState : EnemyBaseState
 
     private float duration = 1f;
 
+    // Array of hit sounds
+    private string[] hitSounds = { "hit2", "hit3", "hit4", "hit5" };
+
     public EnemyImpactState(EnemyStateMachine stateMachine) : base(stateMachine) { }
 
     public override void Enter()
     {
-
-        AudioManager.Instance.Play("hit");
+        // Select a random hit sound from the array
+        string randomHitSound = hitSounds[Random.Range(0, hitSounds.Length)];
+        AudioManager.Instance.Play(randomHitSound);
         stateMachine.Animator.CrossFadeInFixedTime(ImpactHash, CrossFadeDuration);
 
     }

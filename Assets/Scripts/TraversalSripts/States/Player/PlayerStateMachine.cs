@@ -12,13 +12,12 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
     [field: SerializeField] public WeaponDamage Weapon { get; private set; }
     [field: SerializeField] public HealthBar HealthBar { get; private set; }
-
     [field: SerializeField] public Camera MainCamera { get; private set; }
     [field: SerializeField] public LayerMask GroundLayer { get; private set; }
-
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
     [field: SerializeField] public LedgeDetector LedgeDetector { get; private set; }
     [field: SerializeField] public float FreeLookMovementSpeed { get;  set; }
+    [field: SerializeField] public float RollMovementSpeed { get; set; }
     [field: SerializeField] public float TargetingMovementSpeed { get; private set; }
     [field: SerializeField] public float RotationDamping { get; private set; }
     [field: SerializeField] public float DodgeDuration { get; private set; }
